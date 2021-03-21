@@ -33,4 +33,12 @@ app.get("/healthz", function(req, res) {
   res.send("I am happy and healthy\n");
 });
 
+app.get("/user/:userId", function(res, req) {
+  let userInfo = {
+    id : "heinzi",
+    name : "test"
+  }
+  req.send(JSON.stringify(userInfo));
+});
+
 module.exports = app;
