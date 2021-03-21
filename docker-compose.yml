@@ -1,0 +1,33 @@
+version: "3.7"
+
+services:
+  database:
+    build: 
+      context: ./docker/db
+    restart: always
+    ports:
+      - ${MYSQL_PORT}:${MYSQL_PORT}
+    volumes:
+      - db_data:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_TCP_PORT: ${MYSQL_PORT}
+    env_file: ./.env
+
+  api:
+    depends_on: 
+      - database
+    build:
+      context: ./docker/api
+    ports:
+      - 3000:3000
+    working_dir: /app
+    volumes:
+      - ./:/app
+    env_file: ./.env
+
+volumes:
+  db_data {}

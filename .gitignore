@@ -1,0 +1,8 @@
+# garbage 
+.DS_Store
+*.swp
+.idea
+
+# vendor files
+node_modules/
+vendor/
